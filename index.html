@@ -2,166 +2,166 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Calendario para salir a predicar</title>
+<title>Calendario</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&family=Quicksand:wght@500&display=swap" rel="stylesheet">
-
+<!-- FONT PLACEHOLDER -->
 <style>
+@font-face {
+  font-family: "Wambo";
+  src: url("wambo.ttf"); /* cuando subas el archivo */
+}
+
 body {
   margin: 0;
-  font-family: 'Quicksand', sans-serif;
-  background: linear-gradient(#cceeff, #e6f7ff);
-  overflow-x: hidden;
+  background: linear-gradient(#cceeff, #eaf6ff);
+  font-family: Arial, sans-serif;
   text-align: center;
+  overflow-x: hidden;
 }
 
-/* TÍTULO */
 h1 {
-  font-family: 'Baloo 2', cursive;
-  font-size: 48px;
+  font-family: "Wambo", "Baloo 2", cursive;
+  font-size: 52px;
   color: #ff69b4;
   margin-top: 30px;
-  text-shadow: 2px 2px #fff;
 }
 
-/* SUBTÍTULO */
 h2 {
-  font-size: 40px;
-  color: #ff4fa3;
+  font-family: "Wambo", "Baloo 2", cursive;
+  font-size: 60px;
+  color: #ff3fa4;
 }
 
-/* CORAZÓN */
-#bigHeart {
-  font-size: 70px;
+#heart {
+  font-size: 90px;
   cursor: pointer;
-  animation: pulse 1.5s infinite;
+  animation: pulse 1.3s infinite;
 }
 
 @keyframes pulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+  50% { transform: scale(1.25); }
   100% { transform: scale(1); }
 }
 
 /* DECORACIÓN */
 .decor {
   position: absolute;
-  font-size: 50px;
+  font-size: 90px;
   animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
   0% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+  50% { transform: translateY(-20px); }
   100% { transform: translateY(0); }
 }
 
 /* CALENDARIO */
-.calendar {
+#calendar {
+  margin: 60px auto;
+  max-width: 900px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
-  max-width: 700px;
-  margin: 30px auto;
+  gap: 12px;
 }
 
 .day {
   background: white;
-  border-radius: 15px;
-  padding: 10px;
+  border-radius: 18px;
+  padding: 8px;
+  min-height: 110px;
   cursor: pointer;
-  min-height: 90px;
   position: relative;
 }
 
-.day span {
-  font-weight: bold;
+.day strong {
+  display: block;
 }
 
 .day textarea {
   width: 100%;
-  height: 50px;
+  height: 70px;
   border: none;
   resize: none;
   outline: none;
-  font-family: inherit;
 }
 
 .heartDay::after {
-  content: "💗";
+  content: "💖";
   position: absolute;
   bottom: 5px;
   right: 5px;
+  font-size: 22px;
 }
 
-/* LLUVIA DE CORAZONES */
-.floating {
+/* corazones */
+.fall {
   position: fixed;
+  top: -20px;
   animation: fall 4s linear forwards;
 }
 
 @keyframes fall {
-  0% { transform: translateY(-50px); opacity: 1; }
-  100% { transform: translateY(100vh); opacity: 0; }
+  to { transform: translateY(120vh); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- DECORACIÓN -->
-<div class="decor" style="top:20px; left:20px;">🌸</div>
-<div class="decor" style="top:100px; right:40px;">☀️</div>
-<div class="decor" style="top:200px; left:60px;">☁️</div>
-<div class="decor" style="top:300px; right:80px;">🌼</div>
+<!-- DIBUJOS -->
+<div class="decor" style="top:40px; left:40px;">☀️ te amo</div>
+<div class="decor" style="top:140px; right:40px;">☁️💗</div>
+<div class="decor" style="top:300px; left:60px;">🌸</div>
+<div class="decor" style="top:400px; right:80px;">🌼</div>
 
 <h1>Calendario para salir a predicar</h1>
 <h2>Mara 💖 Valentino</h2>
 
-<div id="bigHeart">💖</div>
+<div id="heart">💖</div>
 
 <!-- CALENDARIO -->
-<div class="calendar" id="calendar"></div>
+<div id="calendar"></div>
 
 <script>
 const calendar = document.getElementById("calendar");
-const days = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
+const days = ["Dom 💕","Lun 💕","Mar 💕","Mié 💕","Jue 💕","Vie 💕","Sáb 💕"];
 
-// encabezados
 days.forEach(d => {
   const div = document.createElement("div");
-  div.innerHTML = "<strong>"+d+" 💕</strong>";
+  div.innerHTML = "<strong>"+d+"</strong>";
   calendar.appendChild(div);
 });
 
-// días
 for (let i = 1; i <= 31; i++) {
-  const div = document.createElement("div");
-  div.className = "day";
-  if (i === 1) div.classList.add("heartDay");
+  const d = document.createElement("div");
+  d.className = "day";
+  if (i === 1) d.classList.add("heartDay");
 
-  const span = document.createElement("span");
-  span.textContent = i;
+  const s = document.createElement("strong");
+  s.textContent = i;
 
-  const text = document.createElement("textarea");
-  text.value = localStorage.getItem("day"+i) || "";
-  text.oninput = () => localStorage.setItem("day"+i, text.value);
+  const t = document.createElement("textarea");
+  t.value = localStorage.getItem("day"+i) || "";
+  t.oninput = () => localStorage.setItem("day"+i, t.value);
 
-  div.appendChild(span);
-  div.appendChild(text);
-  calendar.appendChild(div);
+  d.appendChild(s);
+  d.appendChild(t);
+  calendar.appendChild(d);
 }
 
-// corazones al tocar
-document.getElementById("bigHeart").onclick = () => {
-  for (let i = 0; i < 30; i++) {
+document.getElementById("heart").onclick = () => {
+  calendar.scrollIntoView({ behavior: "smooth" });
+
+  for (let i = 0; i < 40; i++) {
     const h = document.createElement("div");
-    h.className = "floating";
-    h.textContent = ["💖","💌","💕","❤️"][Math.floor(Math.random()*4)];
+    h.className = "fall";
+    h.textContent = ["💖","💌","te amo","💕"][Math.floor(Math.random()*4)];
     h.style.left = Math.random()*100+"vw";
     h.style.fontSize = (20 + Math.random()*30)+"px";
     document.body.appendChild(h);
-    setTimeout(() => h.remove(), 4000);
+    setTimeout(()=>h.remove(),4000);
   }
 };
 </script>
