@@ -17,7 +17,6 @@ body{
   overflow-x:hidden;
 }
 
-/* MÚSICA */
 audio{display:none}
 
 /* INTRO */
@@ -41,25 +40,25 @@ audio{display:none}
 
 .names{
   font-size:3.4rem;
-  font-weight:500;
   color:#ff4fa3;
   display:flex;
+  gap:22px;
   justify-content:center;
   align-items:center;
-  gap:22px;
 }
 
 .heart-btn{
-  font-size:4.8rem;
+  font-size:5rem;
   cursor:pointer;
   transition:transform .2s;
 }
-.heart-btn:hover{transform:scale(1.2)}
+.heart-btn:hover{transform:scale(1.25)}
 
 /* DECORACIONES */
 .decoration{
   position:absolute;
   font-size:3rem;
+  animation:float 6s ease-in-out infinite;
 }
 .sun{top:30px;right:40px}
 .cloud1{top:70px;left:40px}
@@ -74,12 +73,10 @@ audio{display:none}
   pointer-events:none;
   overflow:hidden;
 }
-
 .effect{
   position:absolute;
   bottom:-10vh;
   animation:floatUp linear forwards;
-  opacity:.9;
 }
 
 /* CALENDARIO */
@@ -97,17 +94,10 @@ audio{display:none}
   box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
-.calendar h2{
-  text-align:center;
-  color:#d63384;
-  font-size:2.3rem;
-}
-
 .grid{
   display:grid;
   grid-template-columns:repeat(7,1fr);
   gap:10px;
-  margin-top:20px;
 }
 
 .day-name{
@@ -122,8 +112,7 @@ audio{display:none}
   border-radius:14px;
   padding:8px;
   position:relative;
-  font-weight:600;
-  color:#7a184f;
+  cursor:pointer;
 }
 
 .day span{
@@ -132,12 +121,51 @@ audio{display:none}
   right:8px;
 }
 
-.special{
-  background:#ffb6d5;
-  box-shadow:0 0 0 4px #ff77b7 inset;
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-box{
+  background:#fff;
+  padding:20px;
+  border-radius:14px;
+  width:90%;
+  max-width:400px;
+}
+
+textarea{
+  width:100%;
+  height:120px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  padding:10px;
+  resize:none;
+}
+
+button{
+  margin-top:10px;
+  width:100%;
+  padding:10px;
+  background:#ff77b7;
+  border:none;
+  border-radius:10px;
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
 }
 
 /* ANIMACIONES */
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+  100%{transform:translateY(0)}
+}
 @keyframes floatUp{
   to{transform:translateY(-120vh) rotate(360deg);opacity:0}
 }
@@ -157,15 +185,11 @@ audio{display:none}
 <section class="intro">
   <div>
     <div class="title">Calendario para salir a predicar</div>
-
     <div class="names">
-      María
-      <span class="heart-btn" id="heart">💖</span>
-      Valentino
+      María <span class="heart-btn" id="heart">💖</span> Valentino
     </div>
   </div>
 
-  <!-- DECORACIONES -->
   <div class="decoration sun">☀️</div>
   <div class="decoration cloud1">☁️</div>
   <div class="decoration cloud2">☁️</div>
@@ -175,73 +199,73 @@ audio{display:none}
 
 <div class="effects" id="effects"></div>
 
-<section class="calendar-section" id="calendar">
+<section class="calendar-section">
   <div class="calendar">
-    <h2>Marzo 2026</h2>
-
-    <div class="grid">
-      <div class="day-name">Dom 💖</div>
-      <div class="day-name">Lun 💖</div>
-      <div class="day-name">Mar 💖</div>
-      <div class="day-name">Mié 💖</div>
-      <div class="day-name">Jue 💖</div>
-      <div class="day-name">Vie 💖</div>
-      <div class="day-name">Sáb 💖</div>
-
-      <div class="day special">1<span>💖💖</span></div>
-      <div class="day">2<span>💖</span></div>
-      <div class="day">3<span>💖</span></div>
-      <div class="day">4<span>💖</span></div>
-      <div class="day">5<span>💖</span></div>
-      <div class="day">6<span>💖</span></div>
-      <div class="day">7<span>💖</span></div>
-      <div class="day">8<span>💖</span></div>
-      <div class="day">9<span>💖</span></div>
-      <div class="day">10<span>💖</span></div>
-      <div class="day">11<span>💖</span></div>
-      <div class="day">12<span>💖</span></div>
-      <div class="day">13<span>💖</span></div>
-      <div class="day">14<span>💖</span></div>
-      <div class="day">15<span>💖</span></div>
-      <div class="day">16<span>💖</span></div>
-      <div class="day">17<span>💖</span></div>
-      <div class="day">18<span>💖</span></div>
-      <div class="day">19<span>💖</span></div>
-      <div class="day">20<span>💖</span></div>
-      <div class="day">21<span>💖</span></div>
-      <div class="day">22<span>💖</span></div>
-      <div class="day">23<span>💖</span></div>
-      <div class="day">24<span>💖</span></div>
-      <div class="day">25<span>💖</span></div>
-      <div class="day">26<span>💖</span></div>
-      <div class="day">27<span>💖</span></div>
-      <div class="day">28<span>💖</span></div>
-      <div class="day">29<span>💖</span></div>
-      <div class="day">30<span>💖</span></div>
-      <div class="day">31<span>💖</span></div>
-    </div>
+    <div class="grid" id="grid"></div>
   </div>
 </section>
 
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h3 id="modalTitle"></h3>
+    <textarea id="note"></textarea>
+    <button onclick="saveNote()">Guardar</button>
+  </div>
+</div>
+
 <script>
+const grid=document.getElementById('grid');
+const modal=document.getElementById('modal');
+const note=document.getElementById('note');
+const modalTitle=document.getElementById('modalTitle');
+let currentDay=null;
+
+// crear días
+const days=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+days.forEach(d=>grid.innerHTML+=`<div class="day-name">${d} 💖</div>`);
+
+for(let i=1;i<=31;i++){
+  const div=document.createElement('div');
+  div.className='day';
+  div.innerHTML=`${i}<span>💖</span>`;
+  div.onclick=()=>openDay(i);
+  grid.appendChild(div);
+}
+
+function openDay(day){
+  currentDay=day;
+  modalTitle.textContent='Día '+day;
+  note.value=localStorage.getItem('day_'+day)||'';
+  modal.style.display='flex';
+}
+
+function saveNote(){
+  localStorage.setItem('day_'+currentDay,note.value);
+  modal.style.display='none';
+}
+
+// cerrar modal tocando fuera
+modal.onclick=e=>{
+  if(e.target===modal) modal.style.display='none';
+};
+
+// corazones
 const heart=document.getElementById('heart');
 const effects=document.getElementById('effects');
-const calendar=document.getElementById('calendar');
 
-heart.addEventListener('click',()=>{
-  const messages=['💌 Te amo','💌 Para siempre','💌 Amor','💌 Mi vida'];
-  for(let i=0;i<120;i++){
+heart.onclick=()=>{
+  for(let i=0;i<150;i++){
     const e=document.createElement('div');
     e.className='effect';
-    e.textContent=Math.random()>0.6?messages[Math.floor(Math.random()*messages.length)]:'💖';
+    e.textContent=Math.random()>0.6?'💌 Te amo':'💖';
     e.style.left=Math.random()*100+'vw';
     e.style.fontSize=(Math.random()*24+18)+'px';
     e.style.animationDuration=(3+Math.random()*4)+'s';
     effects.appendChild(e);
     setTimeout(()=>e.remove(),7000);
   }
-  calendar.scrollIntoView({behavior:'smooth'});
-});
+};
 </script>
 
 </body>
