@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calendario para salir a predicar</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #9ad9ff, #c9ecff);
+      overflow-x: hidden;
+    }
+
+    /* INTRO */
+    .intro {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .box {
+      animation: fadeIn 1.6s ease forwards;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #0b4f6c;
+      margin-bottom: 18px;
+      animation: slideDown 1.6s ease forwards;
+    }
+
+    .names {
+      font-size: 2rem;
+      color: #ff4fa3;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: center;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .heart-btn {
+      cursor: pointer;
+      font-size: 2.6rem;
+      transition: transform .2s ease;
+      user-select: none;
+    }
+
+    .heart-btn:hover {
+      transform: scale(1.2);
+    }
+
+    /* CORAZONES */
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -10vh;
+      font-size: 1.8rem;
+      color: #ff6fb1;
+      animation: rise linear forwards;
+      opacity: .9;
+    }
+
+    /* CALENDARIO */
+    .calendar-section {
+      padding: 60px 16px 90px;
+      background: linear-gradient(180deg, #ffd1e8, #ffe8f3);
+    }
+
+    .calendar {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff0f7;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      padding: 20px;
+    }
+
+    .calendar h2 {
+      text-align: center;
+      color: #d63384;
+      margin: 10px 0 20px;
+      font-size: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .day-name {
+      text-align: center;
+      font-weight: 600;
+      color: #b02a6f;
+    }
+
+    .day {
+      height: 90px;
+      background: #ffd6ea;
+      border-radius: 10px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 8px;
+      color: #7a184f;
+      font-weight: 600;
+    }
+
+    audio { display: none; }
+
+    /* ANIMACIONES */
+    @keyframes fadeIn {
+      from { opacity: 0 }
+      to { opacity: 1 }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0 }
+      to { transform: none; opacity: 1 }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) }
+      50% { transform: translateY(-8px) }
+      100% { transform: translateY(0) }
+    }
+
+    @keyframes rise {
+      to {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MÚSICA SUAVE -->
+  <!-- Subí un archivo llamado music.mp3 -->
+  <audio id="bgm" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="box">
+      <h1>Calendario para salir a predicar</h1>
+      <div class="names">
+        <span>Mara</span>
+        <span class="heart-btn" id="heart">💖</span>
+        <span>Valentino</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CORAZONES -->
+  <div class="hearts" id="hearts"></div>
+
+  <!-- CALENDARIO -->
+  <section class="calendar-section" id="calendar">
+    <div class="calendar">
+      <h2>Marzo 2026</h2>
+
+      <div class="grid">
+        <div class="day-name">Dom</div>
+        <div class="day-name">Lun</div>
+        <div class="day-name">Mar</div>
+        <div class="day-name">Mié</div>
+        <div class="day-name">Jue</div>
+        <div class="day-name">Vie</div>
+        <div class="day-name">Sáb</div>
+
+        <div class="day">1</div>
+        <div class="day">2</div>
+        <div class="day">3</div>
+        <div class="day">4</div>
+        <div class="day">5</div>
+        <div class="day">6</div>
+        <div class="day">7</div>
+        <div class="day">8</div>
+        <div class="day">9</div>
+        <div class="day">10</div>
+        <div class="day">11</div>
+        <div class="day">12</div>
+        <div class="day">13</div>
+        <div class="day">14</div>
+        <div class="day">15</div>
+        <div class="day">16</div>
+        <div class="day">17</div>
+        <div class="day">18</div>
+        <div class="day">19</div>
+        <div class="day">20</div>
+        <div class="day">21</div>
+        <div class="day">22</div>
+        <div class="day">23</div>
+        <div class="day">24</div>
+        <div class="day">25</div>
+        <div class="day">26</div>
+        <div class="day">27</div>
+        <div class="day">28</div>
+        <div class="day">29</div>
+        <div class="day">30</div>
+        <div class="day">31</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const heart = document.getElementById('heart');
+    const hearts = document.getElementById('hearts');
+    const calendar = document.getElementById('calendar');
+
+    heart.addEventListener('click', () => {
+      for (let i = 0; i < 40; i++) {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.textContent = '💗';
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.animationDuration = (3 + Math.random() * 3) + 's';
+        hearts.appendChild(h);
+        setTimeout(() => h.remove(), 6000);
+      }
+      calendar.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
