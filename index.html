@@ -1,171 +1,213 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Calendario</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendario para salir a predicar</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #9ad9ff, #c9ecff);
+      overflow-x: hidden;
+    }
 
-<!-- FONT PLACEHOLDER -->
-<style>
-@font-face {
-  font-family: "Wambo";
-  src: url("wambo.ttf"); /* cuando subas el archivo */
-}
+    /* INTRO */
+    .intro {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .box {
+      animation: fadeIn 1.6s ease forwards;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #0b4f6c;
+      margin-bottom: 18px;
+      animation: slideDown 1.6s ease forwards;
+    }
+    .names {
+      font-size: 2rem;
+      color: #ff4fa3;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: center;
+      animation: float 3s ease-in-out infinite;
+    }
+    .heart-btn {
+      cursor: pointer;
+      font-size: 2.4rem;
+      transition: transform .2s ease;
+      user-select: none;
+    }
+    .heart-btn:hover { transform: scale(1.2); }
 
-body {
-  margin: 0;
-  background: linear-gradient(#cceeff, #eaf6ff);
-  font-family: Arial, sans-serif;
-  text-align: center;
-  overflow-x: hidden;
-}
+    /* HEART ANIMATION */
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .heart {
+      position: absolute;
+      bottom: -10vh;
+      font-size: 1.6rem;
+      color: #ff6fb1;
+      animation: rise linear forwards;
+      opacity: .9;
+    }
 
-h1 {
-  font-family: "Wambo", "Baloo 2", cursive;
-  font-size: 52px;
-  color: #ff69b4;
-  margin-top: 30px;
-}
+    /* CALENDAR */
+    .calendar-section {
+      padding: 60px 16px 90px;
+      background: linear-gradient(180deg, #ffd1e8, #ffe8f3);
+    }
+    .calendar {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff0f7;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      padding: 20px;
+    }
+    .calendar h2 {
+      text-align: center;
+      color: #d63384;
+      margin: 10px 0 20px;
+      font-size: 2rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+    .day-name {
+      text-align: center;
+      font-weight: 600;
+      color: #b02a6f;
+    }
+    .day {
+      height: 90px;
+      background: #ffd6ea;
+      border-radius: 10px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 8px;
+      color: #7a184f;
+      font-weight: 600;
+    }
+    .empty { background: transparent; }
 
-h2 {
-  font-family: "Wambo", "Baloo 2", cursive;
-  font-size: 60px;
-  color: #ff3fa4;
-}
+    /* MUSIC */
+    audio { display: none; }
 
-#heart {
-  font-size: 90px;
-  cursor: pointer;
-  animation: pulse 1.3s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.25); }
-  100% { transform: scale(1); }
-}
-
-/* DECORACIÓN */
-.decor {
-  position: absolute;
-  font-size: 90px;
-  animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0); }
-}
-
-/* CALENDARIO */
-#calendar {
-  margin: 60px auto;
-  max-width: 900px;
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 12px;
-}
-
-.day {
-  background: white;
-  border-radius: 18px;
-  padding: 8px;
-  min-height: 110px;
-  cursor: pointer;
-  position: relative;
-}
-
-.day strong {
-  display: block;
-}
-
-.day textarea {
-  width: 100%;
-  height: 70px;
-  border: none;
-  resize: none;
-  outline: none;
-}
-
-.heartDay::after {
-  content: "💖";
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  font-size: 22px;
-}
-
-/* corazones */
-.fall {
-  position: fixed;
-  top: -20px;
-  animation: fall 4s linear forwards;
-}
-
-@keyframes fall {
-  to { transform: translateY(120vh); opacity: 0; }
-}
-</style>
+    /* ANIMATIONS */
+    @keyframes fadeIn { from {opacity:0} to {opacity:1} }
+    @keyframes slideDown { from {transform:translateY(-30px); opacity:0} to {transform:none; opacity:1} }
+    @keyframes float { 0%{transform:translateY(0)} 50%{transform:translateY(-8px)} 100%{transform:translateY(0)} }
+    @keyframes rise { to { transform: translateY(-120vh) rotate(360deg); opacity: 0; } }
+  </style>
 </head>
-
 <body>
 
-<!-- DIBUJOS -->
-<div class="decor" style="top:40px; left:40px;">☀️ te amo</div>
-<div class="decor" style="top:140px; right:40px;">☁️💗</div>
-<div class="decor" style="top:300px; left:60px;">🌸</div>
-<div class="decor" style="top:400px; right:80px;">🌼</div>
+  <!-- Música suave (autoplay al tocar el link) -->
+  <!-- Reemplazá music.mp3 por tu archivo -->
+  <audio id="bgm" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
 
-<h1>Calendario para salir a predicar</h1>
-<h2>Mara 💖 Valentino</h2>
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="box">
+      <h1>Calendario para salir a predicar</h1>
+      <div class="names">
+        <span>Mara</span>
+        <span class="heart-btn" id="heart">💖</span>
+        <span>Valentino</span>
+      </div>
+    </div>
+  </section>
 
-<div id="heart">💖</div>
+  <!-- Corazones flotando -->
+  <div class="hearts" id="hearts"></div>
 
-<!-- CALENDARIO -->
-<div id="calendar"></div>
+  <!-- CALENDARIO -->
+  <section class="calendar-section" id="calendar">
+    <div class="calendar">
+      <h2>Marzo 2026</h2>
+      <div class="grid">
+        <div class="day-name">Dom</div>
+        <div class="day-name">Lun</div>
+        <div class="day-name">Mar</div>
+        <div class="day-name">Mié</div>
+        <div class="day-name">Jue</div>
+        <div class="day-name">Vie</div>
+        <div class="day-name">Sáb</div>
 
-<script>
-const calendar = document.getElementById("calendar");
-const days = ["Dom 💕","Lun 💕","Mar 💕","Mié 💕","Jue 💕","Vie 💕","Sáb 💕"];
+        <!-- Marzo 2026 comienza Domingo -->
+        <div class="day">1</div>
+        <div class="day">2</div>
+        <div class="day">3</div>
+        <div class="day">4</div>
+        <div class="day">5</div>
+        <div class="day">6</div>
+        <div class="day">7</div>
+        <div class="day">8</div>
+        <div class="day">9</div>
+        <div class="day">10</div>
+        <div class="day">11</div>
+        <div class="day">12</div>
+        <div class="day">13</div>
+        <div class="day">14</div>
+        <div class="day">15</div>
+        <div class="day">16</div>
+        <div class="day">17</div>
+        <div class="day">18</div>
+        <div class="day">19</div>
+        <div class="day">20</div>
+        <div class="day">21</div>
+        <div class="day">22</div>
+        <div class="day">23</div>
+        <div class="day">24</div>
+        <div class="day">25</div>
+        <div class="day">26</div>
+        <div class="day">27</div>
+        <div class="day">28</div>
+        <div class="day">29</div>
+        <div class="day">30</div>
+        <div class="day">31</div>
+      </div>
+    </div>
+  </section>
 
-days.forEach(d => {
-  const div = document.createElement("div");
-  div.innerHTML = "<strong>"+d+"</strong>";
-  calendar.appendChild(div);
-});
+  <script>
+    const heart = document.getElementById('heart');
+    const hearts = document.getElementById('hearts');
+    const calendar = document.getElementById('calendar');
 
-for (let i = 1; i <= 31; i++) {
-  const d = document.createElement("div");
-  d.className = "day";
-  if (i === 1) d.classList.add("heartDay");
-
-  const s = document.createElement("strong");
-  s.textContent = i;
-
-  const t = document.createElement("textarea");
-  t.value = localStorage.getItem("day"+i) || "";
-  t.oninput = () => localStorage.setItem("day"+i, t.value);
-
-  d.appendChild(s);
-  d.appendChild(t);
-  calendar.appendChild(d);
-}
-
-document.getElementById("heart").onclick = () => {
-  calendar.scrollIntoView({ behavior: "smooth" });
-
-  for (let i = 0; i < 40; i++) {
-    const h = document.createElement("div");
-    h.className = "fall";
-    h.textContent = ["💖","💌","te amo","💕"][Math.floor(Math.random()*4)];
-    h.style.left = Math.random()*100+"vw";
-    h.style.fontSize = (20 + Math.random()*30)+"px";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),4000);
-  }
-};
-</script>
-
+    heart.addEventListener('click', () => {
+      // crear muchos corazones estilo San Valentín
+      for (let i = 0; i < 40; i++) {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.textContent = '💗';
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.animationDuration = 3 + Math.random() * 3 + 's';
+        hearts.appendChild(h);
+        setTimeout(() => h.remove(), 6000);
+      }
+      // ir al calendario
+      calendar.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
 
